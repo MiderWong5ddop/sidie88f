@@ -396,6 +396,7 @@ class Screen:
             self.display(image)
 
     def display(self, image):
+        print("display")
         if not self._status:
             self._driver.init()
             self._status = True
@@ -404,6 +405,7 @@ class Screen:
         self._last_display = time.time()
 
     def display_partial(self, image):
+        print("display_partial")
         if not self._status:
             self.display(image)
             return

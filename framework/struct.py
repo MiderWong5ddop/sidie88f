@@ -222,7 +222,7 @@ class Book:
         if display:
             self.base.display()
 
-    def change_page(self, target: str, to_stack=True, display=True):
+    def change_page(self, target: str, to_stack=True, display=True, refresh='a'):
         if target in self.Pages:
             if to_stack:
                 self.back_stack.put(self.now_page)
@@ -238,7 +238,8 @@ class Book:
             self.now_page = target
             self.Page = self.Pages[target]
             self.Page.active()
-            self.base.display(display)
+            if display:
+                self.base.display(refresh)
         else:
             raise KeyError("The targeted page is not found.")
 

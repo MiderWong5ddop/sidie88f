@@ -272,6 +272,7 @@ class TouchHandler:
                     if self.back_right.temp_location[0] - d_x >= 20:
                         self.pool.add(self.env.back_right, True)
                         self.back_right.showed = True
+            print(f"keep touching")
 
         self.env.Now.Book.Page.touch_records_rlock.release()
         self.data_lock.release()

@@ -540,6 +540,8 @@ class Env:
                 self.Screen.display(image)
             elif refresh == "f":
                 self.Screen.display_partial(image)
+            else:
+                raise Exception("Unknown refresh mode: %s" % refresh)
 
         elif self.display_lock.acquire(blocking=False):
             self.Screen.wait_busy()
