@@ -272,3 +272,4 @@ class Theme(lib.ThemeBaseWithoutDocker):
     def __init__(self, env):
         super().__init__(env)
         self.add_book("main", MainBook(self))
+        self.show_in_settings = False

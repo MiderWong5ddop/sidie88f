@@ -28,3 +28,4 @@ class Application(lib.AppBase):
     def __init__(self, env):
         super().__init__(env)
         self.add_book("main", MainBook(self))
+        self.show_in_drawer = False
