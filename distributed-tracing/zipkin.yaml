@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin-pod
+  labels:
+    app: zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zipkin
+  template:
+    metadata:
+      labels:
+        app: zipkin
+    spec:
+      containers:
+      - name: zipkin
+        image: openzipkin/zipkin:latest
+        env:
+        - name: _JAVA_OPTIONS
+          value: -Dlogging.level.zipkin=DEBUG -Dlogging.level.zipkin2=DEBUG
+        - name: RABBIT_URI
+          value: amqp://rabbitmq-service.default.svc.cluster.local:5672
+        - name: RABBIT_ADDRESSES
+          value: rabbitmq-service.default.svc.cluster.local
+        ports:
+        - containerPort: 9411
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin-service
+spec:
+  type: NodePort
+  ports:
+  - port: 9411
+    targetPort: 9411
+  selector:
+    app: zipkin
