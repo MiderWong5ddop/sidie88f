@@ -28,7 +28,6 @@ kind: Service
 metadata:
   name: currency-exchange-services
 spec:
-  type: NodePort
   ports:
   - port: 80
     targetPort: 80
