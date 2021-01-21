@@ -69,9 +69,10 @@ EOF
 
 yum  install kubeadm docker -y
 systemctl restart docker && systemctl enable docker
+systemctl enable kubelet.service
 
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-kubeadm join 172.20.103.122:6443 --token 2n2wuv.o6g7zvo1wgrnmtwm \
-    --discovery-token-ca-cert-hash sha256:72e5de940154c3475ef0057540e01afc442891b657749475aedf27490626185d
+kubeadm join 172.20.103.122:6443 --token 6sb7pf.vapbnnamri4cbaqt \
+    --discovery-token-ca-cert-hash sha256:26600db37e20308a28b9d16506c842f7a32e9b0011b7256a77dae013f4932d0f
