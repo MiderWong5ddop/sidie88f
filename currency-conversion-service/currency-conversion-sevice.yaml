@@ -12,26 +12,24 @@ spec:
   template:
     metadata:
       labels:
-        name: currency-conversion
+        app: currency-conversion
     spec:
       containers:
       - name: currency-conversion-service
-        image: currency-conversion-service:v2
+        image: sidie88/currency-conversion-service:v1
         env:
         - name: RABBIT_URI
           value: amqp://rabbitmq-service.default.svc.cluster.local:5672
         ports:
-        - containerPort: 8000
+        - containerPort: 8100
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: currency-conversion-service
-  labels: 
-    name: currency-conversion
 spec:
   ports:
-  - port: 8000
-    targetPort: 8000
+  - port: 80
+    targetPort: 8100
   selector:
-    name: currency-conversion-service
+    app: currency-conversion
