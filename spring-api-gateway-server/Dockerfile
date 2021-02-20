@@ -1,4 +1,4 @@
-FROM sidie88/maven-base:v1 AS build
+FROM maven-base:v1 AS build
 COPY . /app
 WORKDIR /app
 RUN mvn install  -Dmaven.test.skip=true
