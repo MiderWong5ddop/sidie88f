@@ -81,4 +81,10 @@ public class ExchangeValue {
 		this.ipAddress = ipAddress;
 	}
 	
+	@Override
+	public String toString() {
+		return "ExchangeValue [id=" + id + ", from=" + from + ", to=" + to + ", conversionMultiple="
+				+ conversionMultiple + ", port=" + port + ", ipAddress=" + ipAddress + "]";
+	}
+	
 }
