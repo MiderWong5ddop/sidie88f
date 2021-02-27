@@ -32,6 +32,6 @@ spec:
   ports:
   - port: 8762
     targetPort: 8762
-    nodePort: 30000
+    #nodePort: 30000
   selector:
     app: spring-api-gateway-server
