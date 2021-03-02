@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<include
+		resource="org/springframework/boot/logging/logback/base.xml" />
+	<appender name="amqp"
+		class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+		<host>rabbitmq-service.default.svc.cluster.local</host>
+		<port>5672</port>
+		<virtualHost>/</virtualHost>
+		<username>guest</username>
+		<password>guest</password>
+		<exchangeType>queue</exchangeType>
+		<exchangeName>my-exchange</exchangeName>
+		<applicationId>AmqpAppenderTest</applicationId>
+		<routingKeyPattern>logs-test</routingKeyPattern>
+		<generateId>true</generateId>
+		<contentType>text/plain</contentType>
+		<maxSenderRetries>2</maxSenderRetries>
+		<charset>UTF-8</charset>
+		<layout>
+			<pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>
+		</layout>
+	</appender>
+	<logger name="com.cxrus.microservices.currencyexchangeservice"
+		level="DEBUG">
+		<appender-ref ref="amqp" />
+	</logger>
+</configuration>
