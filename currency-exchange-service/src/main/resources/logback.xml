@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-	<include
-		resource="org/springframework/boot/logging/logback/base.xml" />
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${HOSTNAME} ${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 	<appender name="amqp"
 		class="org.springframework.amqp.rabbit.logback.AmqpAppender">
 		<host>rabbitmq-service.default.svc.cluster.local</host>
@@ -24,5 +29,6 @@
 	<logger name="com.cxrus.microservices.currencyexchangeservice"
 		level="DEBUG">
 		<appender-ref ref="amqp" />
+		<appender-ref ref="CONSOLE" />
 	</logger>
 </configuration>
