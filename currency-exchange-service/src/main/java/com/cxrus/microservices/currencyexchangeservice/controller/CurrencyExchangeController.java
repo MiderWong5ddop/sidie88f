@@ -1,6 +1,5 @@
 package com.cxrus.microservices.currencyexchangeservice.controller;
 
-import java.math.BigDecimal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,9 @@ public class CurrencyExchangeController {
 				repository.findByFromAndTo(from, to);
 		
 		exchangeValue.setPort(
-				Integer.parseInt(environment.getProperty("local.server.port")));
-		exchangeValue.setIpAddress(environment.getProperty("server.address"));
+				Integer.parseInt(environment.getProperty("CURRENCY_EXCHANGE_SERVICE_PORT_80_TCP_PORT")));
+		exchangeValue.setIpAddress(environment.getProperty("CURRENCY_EXCHANGE_SERVICE_PORT_80_TCP_ADDR"));
+		logger.info("Pod name = " + environment.getProperty("HOSTNAME"));
 		logger.info("{}", exchangeValue);
 		
 		return exchangeValue;
