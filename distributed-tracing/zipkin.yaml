@@ -4,6 +4,7 @@ metadata:
   name: zipkin-pod
   labels:
     app: zipkin
+  namespace: tarsidi
 spec:
   replicas: 1
   selector:
@@ -18,12 +19,16 @@ spec:
       - name: zipkin
         image: openzipkin/zipkin:latest
         env:
+        - name: MY_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: _JAVA_OPTIONS
           value: -Dlogging.level.zipkin=DEBUG -Dlogging.level.zipkin2=DEBUG
         - name: RABBIT_URI
-          value: amqp://rabbitmq-service.default.svc.cluster.local:5672
+          value: amqp://rabbitmq-service.$(MY_NAMESPACE).svc.cluster.local:5672
         - name: RABBIT_ADDRESSES
-          value: rabbitmq-service.default.svc.cluster.local
+          value: rabbitmq-service.$(MY_NAMESPACE).svc.cluster.local
         ports:
         - containerPort: 9411
 ---
@@ -31,6 +36,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zipkin-service
+  namespace: tarsidi
 spec:
   type: NodePort
   ports:

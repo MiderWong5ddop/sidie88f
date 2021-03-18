@@ -4,6 +4,7 @@ metadata:
   name: currency-conversion-pod
   labels:
     app: currency-conversion
+  namespace: tarsidi
 spec:
   replicas: 1
   selector:
@@ -18,8 +19,14 @@ spec:
       - name: currency-conversion-service
         image: sidie88/currency-conversion-service:v1
         env:
+        - name: MY_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: RABBIT_URI
           value: amqp://rabbitmq-service.default.svc.cluster.local:5672
+        - name: _JAVA_OPTIONS
+          value: -Dspring.zipkin.base-url=http://zipkin-service.$(MY_NAMESPACE).svc.cluster.local:9411/
         ports:
         - containerPort: 8100
 ---
@@ -27,6 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: currency-conversion-service
+  namespace: tarsidi
 spec:
   ports:
   - port: 80
