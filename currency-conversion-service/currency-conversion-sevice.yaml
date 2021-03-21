@@ -24,7 +24,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: RABBIT_URI
-          value: amqp://rabbitmq-service.default.svc.cluster.local:5672
+          value: amqp://rabbitmq-service.$(MY_NAMESPACE).svc.cluster.local:5672
         - name: _JAVA_OPTIONS
           value: -Dspring.zipkin.base-url=http://zipkin-service.$(MY_NAMESPACE).svc.cluster.local:9411/
         ports:
