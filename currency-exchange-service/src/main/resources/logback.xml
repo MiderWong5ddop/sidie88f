@@ -9,7 +9,7 @@
     </appender>
 	<appender name="amqp"
 		class="org.springframework.amqp.rabbit.logback.AmqpAppender">
-		<host>rabbitmq-service.tarsidi.svc.cluster.local</host>
+		<host>rabbitmq-service.${MY_NAMESPACE}.svc.cluster.local</host>
 		<port>5672</port>
 		<virtualHost>/</virtualHost>
 		<username>guest</username>
