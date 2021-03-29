@@ -36,4 +36,9 @@ public class CurrencyExchangeController {
 		
 		return exchangeValue;
 	}
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "HELLO . . .";
+	}
 }
